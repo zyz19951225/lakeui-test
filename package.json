@@ -13,7 +13,6 @@
     "build-storybook": "build-storybook"
   },
   "type": "module",
-  "private": true,
   "author": "",
   "license": "ISC",
   "workspaces": [
