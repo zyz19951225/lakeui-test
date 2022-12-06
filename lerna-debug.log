@@ -1,0 +1,99 @@
+0 silly argv {
+0 silly argv   _: [ 'publish' ],
+0 silly argv   registry: 'http://10.5.24.14:7001/',
+0 silly argv   composed: 'publish',
+0 silly argv   lernaVersion: '6.0.3',
+0 silly argv   '$0': '/Users/suju/MyProject/LakeUI/node_modules/.bin/lerna'
+0 silly argv }
+1 notice cli v6.0.3
+2 verbose rootPath /Users/suju/MyProject/LakeUI
+3 verbose session c02c9d2a07654a92
+4 verbose user-agent lerna/6.0.3/node@v16.12.0+arm64 (darwin)
+5 silly argv {
+5 silly argv   _: [ 'publish' ],
+5 silly argv   registry: 'http://10.5.24.14:7001/',
+5 silly argv   composed: 'publish',
+5 silly argv   lernaVersion: '6.0.3'
+5 silly argv }
+6 verbose rootPath /Users/suju/MyProject/LakeUI
+7 info current version 0.0.0
+8 silly isAnythingCommitted
+9 verbose isAnythingCommitted 1
+10 silly getCurrentBranch
+11 verbose currentBranch master
+12 silly remoteBranchExists
+13 silly isBehindUpstream
+14 silly isBehindUpstream master is behind origin/master by 0 commit(s) and ahead by 0
+15 silly hasTags
+16 verbose hasTags false
+17 info Assuming all packages changed
+18 verbose updated @zyztest/basic-component
+19 verbose git-describe undefined => "e7b5c02"
+20 silly git-describe parsed => {"refCount":"1","sha":"e7b5c02","isDirty":false}
+21 info execute Skipping releases
+22 silly lifecycle No script for "preversion" in "LakeUI", continuing
+23 silly lifecycle No script for "preversion" in "@zyztest/basic-component", continuing
+24 verbose version @zyztest/basic-component has no lockfile. Skipping lockfile update.
+25 silly lifecycle No script for "version" in "@zyztest/basic-component", continuing
+26 silly lifecycle No script for "version" in "LakeUI", continuing
+27 silly gitAdd [ 'packages/basic-component/package.json', 'lerna.json' ]
+28 silly gitCommit v0.0.1
+29 verbose git [ 'commit', '-m', 'v0.0.1' ]
+30 silly gitTag v0.0.1
+31 verbose git [ 'tag', 'v0.0.1', '-m', 'v0.0.1' ]
+32 silly lifecycle No script for "postversion" in "@zyztest/basic-component", continuing
+33 silly lifecycle No script for "postversion" in "LakeUI", continuing
+34 info git Pushing tags...
+35 silly gitPush origin master
+36 info publish Publishing packages to npm...
+37 notice Skipping all user and access validation due to third-party registry
+38 notice Make sure you're authenticated properly ¯\_(ツ)_/¯
+39 warn ENOLICENSE Package @zyztest/basic-component is missing a license.
+39 warn ENOLICENSE One way to fix this is to add a LICENSE.md file to the root of this repository.
+39 warn ENOLICENSE See https://choosealicense.com for additional guidance.
+40 silly getCurrentSHA
+41 verbose getCurrentSHA e87e3de5b90d8a4112150f1e21954595228723aa
+42 silly lifecycle No script for "prepublish" in "LakeUI", continuing
+43 silly lifecycle No script for "prepare" in "LakeUI", continuing
+44 silly lifecycle No script for "prepublishOnly" in "LakeUI", continuing
+45 silly lifecycle No script for "prepack" in "LakeUI", continuing
+46 verbose pack-directory packages/basic-component
+47 silly lifecycle No script for "prepublish" in "@zyztest/basic-component", continuing
+48 silly lifecycle No script for "prepare" in "@zyztest/basic-component", continuing
+49 silly lifecycle No script for "prepublishOnly" in "@zyztest/basic-component", continuing
+50 silly lifecycle No script for "prepack" in "@zyztest/basic-component", continuing
+51 silly lifecycle No script for "postpack" in "@zyztest/basic-component", continuing
+52 verbose packed packages/basic-component
+53 silly lifecycle No script for "postpack" in "LakeUI", continuing
+54 verbose publish @zyztest/basic-component
+55 silly FetchError: request to http://10.5.24.14:7001/@zyztest%2fbasic-component failed, reason: connect ECONNREFUSED 10.5.24.14:7001
+55 silly     at ClientRequest.<anonymous> (/Users/suju/MyProject/LakeUI/node_modules/minipass-fetch/lib/index.js:130:14)
+55 silly     at ClientRequest.emit (node:events:390:28)
+55 silly     at Socket.socketErrorListener (node:_http_client:447:9)
+55 silly     at Socket.emit (node:events:402:35)
+55 silly     at emitErrorNT (node:internal/streams/destroy:157:8)
+55 silly     at emitErrorCloseNT (node:internal/streams/destroy:122:3)
+55 silly     at processTicksAndRejections (node:internal/process/task_queues:83:21)
+55 silly  FetchError: request to http://10.5.24.14:7001/@zyztest%2fbasic-component failed, reason: connect ECONNREFUSED 10.5.24.14:7001
+55 silly     at ClientRequest.<anonymous> (/Users/suju/MyProject/LakeUI/node_modules/minipass-fetch/lib/index.js:130:14)
+55 silly     at ClientRequest.emit (node:events:390:28)
+55 silly     at Socket.socketErrorListener (node:_http_client:447:9)
+55 silly     at Socket.emit (node:events:402:35)
+55 silly     at emitErrorNT (node:internal/streams/destroy:157:8)
+55 silly     at emitErrorCloseNT (node:internal/streams/destroy:122:3)
+55 silly     at processTicksAndRejections (node:internal/process/task_queues:83:21) {
+55 silly   code: 'ECONNREFUSED',
+55 silly   errno: 'ECONNREFUSED',
+55 silly   syscall: 'connect',
+55 silly   address: '10.5.24.14',
+55 silly   port: 7001,
+55 silly   type: 'system'
+55 silly }
+56 error ECONNREFUSED request to http://10.5.24.14:7001/@zyztest%2fbasic-component failed, reason: connect ECONNREFUSED 10.5.24.14:7001
+57 error FetchError: request to http://10.5.24.14:7001/@zyztest%2fbasic-component failed, reason: connect ECONNREFUSED 10.5.24.14:7001
+57 error     at ClientRequest.<anonymous> (/Users/suju/MyProject/LakeUI/node_modules/minipass-fetch/lib/index.js:130:14)
+57 error     at ClientRequest.emit (node:events:390:28)
+57 error     at Socket.socketErrorListener (node:_http_client:447:9)
+57 error     at Socket.emit (node:events:402:35)
+57 error     at emitErrorNT (node:internal/streams/destroy:157:8)
+57 error     at emitErrorCloseNT (node:internal/streams/destroy:122:3)
