@@ -13,6 +13,7 @@ import ts from 'typescript'
 import yargs from 'yargs-parser'
 import {fileURLToPath} from 'url';
 import {createRequire} from "node:module";
+import {writeFileSync} from "fs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const require = createRequire(import.meta.url);
@@ -43,9 +44,18 @@ export class Run {
                 const libRoot = path.join(pPath, '..')
                 const isTsx = fse.existsSync(path.join(libRoot, 'src/index.tsx'))
                 return {
+                    preserveModules:true,
                     input: path.join(libRoot, isTsx ? 'src/index.tsx' : 'src/index.ts'),
                     plugins: [
-                         scss(), // 我们这里用scoped scss来写样式，所以打包使用scss预处理样式
+                         scss({
+                             //类名增加前缀
+                             output: function (styles, styleNodes) {
+                                 styles = styles.replace(new RegExp("\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*\\s*\\{",'gm'),(className)=>{
+                                     return '.lab-'+className.slice(1)
+                                 })
+                                 writeFileSync('bundle.css', styles)
+                             },
+                         }), // 我们这里用scoped scss来写样式，所以打包使用scss预处理样式
                         nodeResolve({
                             extensions: ['.js', '.jsx', '.ts', '.tsx'],
                         }),
