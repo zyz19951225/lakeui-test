@@ -46,25 +46,6 @@ export class Run {
                     input: path.join(libRoot, isTsx ? 'src/index.tsx' : 'src/index.ts'),
                     plugins: [
                          scss(), // 我们这里用scoped scss来写样式，所以打包使用scss预处理样式
-                         postcss({
-                            modules: {
-                                generateScopedName: (name:any) => {
-                                    console.log("generateScopedName")
-                                    // if (filename.includes("react-pdf-highlighter") || filename.includes("pdf-viewer") || filename.includes("pdfjs-dist")) {
-                                    //     return name;
-                                    // }
-                                    // /*
-                                    //  * NOTE:  The code below is from the default implementation of generateScopedName -- Jonathan Byrne 04/16/2021
-                                    //  */
-                                    // const i = css.indexOf(`.${name}`);
-                                    // const lineNumber = css.substr(0, i).split(/[\r\n]/).length;
-                                    // const hash = stringHash(css).toString(36).substr(0, 5);
-
-                                    return 'aasd';
-                                }
-                            }
-
-                        }),
                         nodeResolve({
                             extensions: ['.js', '.jsx', '.ts', '.tsx'],
                         }),
