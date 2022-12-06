@@ -50,9 +50,9 @@ export class Run {
                          scss({
                              //类名增加前缀
                              output: function (styles, styleNodes) {
-                                 styles = styles.replace(new RegExp("\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*\\s*\\{",'gm'),(className)=>{
-                                     return '.lab-'+className.slice(1)
-                                 })
+                                 // styles = styles.replace(new RegExp("\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*\\s*\\{",'gm'),(className)=>{
+                                 //     return '.lab-'+className.slice(1)
+                                 // })
                                  writeFileSync('bundle.css', styles)
                              },
                          }), // 我们这里用scoped scss来写样式，所以打包使用scss预处理样式
