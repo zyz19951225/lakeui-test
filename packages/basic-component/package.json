@@ -1,12 +1,11 @@
 {
   "name": "@lakeui-test/basic-component",
-  "version": "0.0.16",
+  "version": "0.0.15",
   "description": "> TODO: description",
   "author": "suju <274813601@qq.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "./src/index.tsx",
-  "xx": "dist/bundle.cjs.js",
+  "main": "dist/bundle.cjs.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -14,7 +13,8 @@
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "bundle.css"
   ],
   "scripts": {
     "test": "node ./__tests__/@demo/basic-component.test.js"
