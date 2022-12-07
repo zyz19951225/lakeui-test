@@ -2,6 +2,15 @@
 import React from 'react';
 import './index.scoped.scss';
 
+const scopedClassMaker = (prefix: string) => {
+    return function (className: string) {
+        return [prefix, className].filter(Boolean).join('-');
+    };
+};
+
+const sc = scopedClassMaker('lab');
+
+
 interface ButtonProps {
     /**
      * Is this the principal call to action on the page?
@@ -12,7 +21,7 @@ interface ButtonProps {
      */
     backgroundColor?: string;
 
-    
+
     /**
      * How large should the button be?
      */
@@ -41,7 +50,7 @@ export const Button = ({
     return (
         <button
             type="button"
-            className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
+            className={sc("ttttt")}
             style={{ backgroundColor }}
             {...props}
         >

@@ -51,9 +51,9 @@ export class Run {
                         scss({
                             //类名增加前缀
                             output: function (styles, styleNodes) {
-                                // styles = styles.replace(new RegExp("\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*\\s*\\{",'gm'),(className)=>{
-                                //     return '.lab-'+className.slice(1)
-                                // })
+                                styles = styles.replace(new RegExp("\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*\\s*\\{",'gm'),(className)=>{
+                                    return '.lab-'+className.slice(1)
+                                })
                                 const pathForCss = path.join(libRoot, 'dist', 'bundle.css')
                                 exists(pathForCss, (exists) => {
                                     if (!exists) {
