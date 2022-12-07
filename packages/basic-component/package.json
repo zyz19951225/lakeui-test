@@ -18,5 +18,5 @@
   "scripts": {
     "test": "node ./__tests__/@demo/basic-component.test.js"
   },
-  "gitHead": "e87e3de5b90d8a4112150f1e21954595228723aa"
+  "gitHead": "29dad96a1fb256ee88c1d49f519bf5ef92e1a993"
 }

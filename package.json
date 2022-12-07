@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:changed": "ts-node rollup.build.ts --type changed",
     "build:all": "ts-node --esm rollup.build.ts --type all",
-    "release": "lerna publish --contents dist --registry http://10.5.24.14:7001/",
+    "release": "lerna publish --contents ./packages --registry http://10.5.24.14:7001/",
     "updated": "lerna updated",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

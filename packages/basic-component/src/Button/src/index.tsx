@@ -11,9 +11,6 @@ interface ButtonProps {
      * What background color to use
      */
     backgroundColor?: string;
-
-
-
     /**
      * How large should the button be?
      */
