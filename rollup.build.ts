@@ -94,7 +94,7 @@ export class Run {
                     ],
                     output: [
                         {
-                            file: path.join(libRoot, pkg.main),
+                            file: path.join(libRoot, pkg.xx),
                             format: 'cjs',
                             exports: 'named',
                             globals: {

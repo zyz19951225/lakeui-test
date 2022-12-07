@@ -5,7 +5,8 @@
   "author": "suju <274813601@qq.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "dist/bundle.cjs.js",
+  "main": "./src/index.tsx",
+  "xx": "dist/bundle.cjs.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
