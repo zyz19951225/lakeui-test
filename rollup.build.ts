@@ -14,6 +14,7 @@ import yargs from 'yargs-parser'
 import {fileURLToPath} from 'url';
 import {createRequire} from "node:module";
 import {writeFileSync} from "fs";
+import dts from 'rollup-plugin-dts';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const require = createRequire(import.meta.url);
@@ -75,6 +76,7 @@ export class Run {
                         commonjs({
                             include: path.join(__dirname, 'node_modules/**'),
                         }),
+                        dts()
                     ],
                     external: [
                         ...Object.keys(pkg.dependencies || {}),
@@ -97,6 +99,11 @@ export class Run {
                             globals: {
                                 react: 'React',
                             },
+                        },
+                        {
+                            format: 'esm',
+                            file: path.join(libRoot, pkg.types),
+                            plugins:[dts()]
                         },
                     ],
                 } as IOpt
