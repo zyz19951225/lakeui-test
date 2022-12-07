@@ -54,12 +54,15 @@ export class Run {
                                 styles = styles.replace(new RegExp("\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*\\s*\\{",'gm'),(className)=>{
                                     return '.lab-'+className.slice(1)
                                 })
-                                const pathForCss = path.join(libRoot, 'dist', 'bundle.css')
-                                exists(pathForCss, (exists) => {
+                                const pathForDist = path.join(libRoot, 'dist')
+                                const pathForCss = path.join(pathForDist, 'bundle.css')
+                                exists(pathForDist, (exists) => {
                                     if (!exists) {
-                                        mkdir(pathForCss, () => {
+                                        mkdir(pathForDist, () => {
                                             writeFileSync(pathForCss, styles)
                                         })
+                                    }else {
+                                        writeFileSync(pathForCss, styles)
                                     }
                                 })
                             },
@@ -106,17 +109,56 @@ export class Run {
                                 react: 'React',
                             },
                         },
-                        {
-                            format: 'esm',
-                            file: path.join(libRoot, pkg.types),
-                            plugins: [dts()]
-                        },
                     ],
+
                 } as IOpt
             }
         )
 
+        const DTSConfig = [...pkgPaths, ...ohterPkgPaths].map<any>(
+            (pPath) => {
+                const pkg = fse.readJsonSync(pPath)
+                const libRoot = path.join(pPath, '..')
+                const isTsx = fse.existsSync(path.join(libRoot, 'src/index.tsx'))
+                return {
+                    preserveModules: true,
+                    input: path.join(libRoot, isTsx ? 'src/index.tsx' : 'src/index.ts'),
+                    plugins: [
+                        scss({
+                            //类名增加前缀
+                            output: function (styles, styleNodes) {
+                              return null
+                            },
+                        }),
+                        dts(),
+                    ],
+                    output: [
+                        {
+                            file: path.join(libRoot, pkg.types),
+                        }
+                    ],
+
+                } as IOpt
+            }
+        )
         for (const opt of rollupConfigList) {
+            console.log(chalk.hex('#009dff')('building: ') + opt.input)
+
+            // 打包
+            const bundle = await rollup({
+                input: opt.input,
+                plugins: opt.plugins,
+                external: opt.external,
+            })
+
+            // 输出
+            for (const out of opt.output) {
+                // await bundle.generate(outOpt)
+                await bundle.write(out)
+                console.log(chalk.hex('#3fda00')('output: ') + out.file)
+            }
+        }
+        for (const opt of DTSConfig) {
             console.log(chalk.hex('#009dff')('building: ') + opt.input)
 
             // 打包
