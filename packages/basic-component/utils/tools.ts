@@ -3,7 +3,7 @@ const scopedClassMaker = (prefix: string) => {
         let newClassNameString = ''
         classNameSting.split(' ').forEach(
             item=> {
-                newClassNameString =[prefix, item].filter(Boolean).join('-')+" "
+                newClassNameString +=[prefix, item].filter(Boolean).join('-')+" "
             }
         )
         return newClassNameString.trim()
