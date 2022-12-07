@@ -1,14 +1,7 @@
 // /src/index.tsx
 import React from 'react';
 import './index.scoped.scss';
-
-const scopedClassMaker = (prefix: string) => {
-    return function (className: string) {
-        return [prefix, className].filter(Boolean).join('-');
-    };
-};
-
-const sc = scopedClassMaker('lab');
+import sc from "../../../utils/tools";
 
 
 interface ButtonProps {
@@ -50,7 +43,7 @@ export const Button = ({
     return (
         <button
             type="button"
-            className={sc("ttttt")}
+            className={sc(['storybook-button', `storybook-button--${size}`, mode].join(' '))}
             style={{ backgroundColor }}
             {...props}
         >
