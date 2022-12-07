@@ -3,18 +3,18 @@ import execa from 'execa' // 开启子进程执行命令，https://www.npmjs.com
 import fse from 'fs-extra' // file system的扩展方法，此处用它同步读取json
 import globby from 'globby' // 增强版本glob，此处用它同步匹配文件名
 import path from 'path' //路径工具
-import { InputOptions, OutputOptions, rollup } from 'rollup'
+import {InputOptions, OutputOptions, rollup} from 'rollup'
 import commonjs from 'rollup-plugin-commonjs'
 import scss from 'rollup-plugin-scss'
 import nodeResolve from 'rollup-plugin-node-resolve'
 import typescript from 'rollup-plugin-typescript2'
-import postcss from "rollup-plugin-postcss-modules";
 import ts from 'typescript'
 import yargs from 'yargs-parser'
 import {fileURLToPath} from 'url';
 import {createRequire} from "node:module";
-import {writeFileSync} from "fs";
+import {exists, mkdir, writeFileSync} from "fs";
 import dts from 'rollup-plugin-dts';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const require = createRequire(import.meta.url);
@@ -45,18 +45,25 @@ export class Run {
                 const libRoot = path.join(pPath, '..')
                 const isTsx = fse.existsSync(path.join(libRoot, 'src/index.tsx'))
                 return {
-                    preserveModules:true,
+                    preserveModules: true,
                     input: path.join(libRoot, isTsx ? 'src/index.tsx' : 'src/index.ts'),
                     plugins: [
-                         scss({
-                             //类名增加前缀
-                             output: function (styles, styleNodes) {
-                                 // styles = styles.replace(new RegExp("\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*\\s*\\{",'gm'),(className)=>{
-                                 //     return '.lab-'+className.slice(1)
-                                 // })
-                                 writeFileSync('bundle.css', styles)
-                             },
-                         }), // 我们这里用scoped scss来写样式，所以打包使用scss预处理样式
+                        scss({
+                            //类名增加前缀
+                            output: function (styles, styleNodes) {
+                                // styles = styles.replace(new RegExp("\\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*\\s*\\{",'gm'),(className)=>{
+                                //     return '.lab-'+className.slice(1)
+                                // })
+                                const pathForCss = path.join(libRoot, 'dist', 'bundle.css')
+                                exists(pathForCss, (exists) => {
+                                    if (!exists) {
+                                        mkdir(pathForCss, () => {
+                                            writeFileSync(pathForCss, styles)
+                                        })
+                                    }
+                                })
+                            },
+                        }), // 我们这里用scoped scss来写样式，所以打包使用scss预处理样式
                         nodeResolve({
                             extensions: ['.js', '.jsx', '.ts', '.tsx'],
                         }),
@@ -76,7 +83,6 @@ export class Run {
                         commonjs({
                             include: path.join(__dirname, 'node_modules/**'),
                         }),
-                        dts()
                     ],
                     external: [
                         ...Object.keys(pkg.dependencies || {}),
@@ -103,7 +109,7 @@ export class Run {
                         {
                             format: 'esm',
                             file: path.join(libRoot, pkg.types),
-                            plugins:[dts()]
+                            plugins: [dts()]
                         },
                     ],
                 } as IOpt
@@ -171,7 +177,7 @@ export class Run {
         location: string
         version: string
     }> {
-        const { stdout } = execa.sync('lerna changed --json')
+        const {stdout} = execa.sync('lerna changed --json')
         const matchPkgStr = stdout.replace(/[\r\n]/g, '').match(/{.+?}/g)
         return (matchPkgStr || []).map((item) => {
             return JSON.parse(item)
