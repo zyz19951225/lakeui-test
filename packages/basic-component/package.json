@@ -13,9 +13,6 @@
   "module": "dist/bundle.ems.js",
   "types": "dist/index.d.ts",
   "files": [
-    "lib",
-    "bundle.css",
-    "./dist/",
     "./dist"
   ],
   "scripts": {
